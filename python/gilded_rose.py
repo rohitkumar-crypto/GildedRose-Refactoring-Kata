@@ -7,33 +7,37 @@ class GildedRose(object):
 
     def update_quality(self):
         for item in self.items:
-            if item.name != "Aged Brie" and item.name != "Backstage passes to a TAFKAL80ETC concert":
-                if item.quality > 0:
-                    if item.name != "Sulfuras, Hand of Ragnaros":
-                        item.quality = item.quality - 1
+            if item.name == "Sulfuras, Hand of Ragnaros":
+                self._update_sulfuras(item)
+            elif item.name == "Aged Brie":
+                self._update_aged_brie(item)
+            elif item.name == "Backstage passes to a TAFKAL80ETC concert":
+                self._update_backstage_pass(item)
+            elif "Conjured" in item.name:
+                self._update_conjured(item)
             else:
-                if item.quality < 50:
-                    item.quality = item.quality + 1
-                    if item.name == "Backstage passes to a TAFKAL80ETC concert":
-                        if item.sell_in < 11:
-                            if item.quality < 50:
-                                item.quality = item.quality + 1
-                        if item.sell_in < 6:
-                            if item.quality < 50:
-                                item.quality = item.quality + 1
-            if item.name != "Sulfuras, Hand of Ragnaros":
-                item.sell_in = item.sell_in - 1
-            if item.sell_in < 0:
-                if item.name != "Aged Brie":
-                    if item.name != "Backstage passes to a TAFKAL80ETC concert":
-                        if item.quality > 0:
-                            if item.name != "Sulfuras, Hand of Ragnaros":
-                                item.quality = item.quality - 1
-                    else:
-                        item.quality = item.quality - item.quality
-                else:
-                    if item.quality < 50:
-                        item.quality = item.quality + 1
+                self._update_normal(item)
+
+    def _update_normal(self, item):
+        #Need to implement the logic for normal items here
+        pass
+
+    def _update_aged_brie(self, item):
+        #Need to implement the logic for Aged Brie here
+        pass
+    
+
+    def _update_backstage_pass(self, item):
+        #Need to implement the logic for Backstage passes here
+        pass
+
+    def _update_sulfuras(self, item):
+        #Need to implement the logic for Sulfuras here
+        pass
+
+    def _update_conjured(self, item):
+        #Need to implement the logic for Conjured items here
+        pass
 
 
 class Item:
