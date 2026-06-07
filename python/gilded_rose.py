@@ -45,16 +45,40 @@ class GildedRose(object):
             print(f"Error updating Aged Brie: {e}")
 
     def _update_backstage_pass(self, item):
-        #Need to implement the logic for Backstage passes here
-        pass
+        try:
+            #Check if the item is past its sell by date
+            if item.sell_in < 0:
+                #If it is, quality drops to 0
+                item.quality = 0
+            elif item.sell_in < 5:
+                #If there are 5 days or less, increase quality by 3
+                item.quality = min(50, item.quality + 3)
+            elif item.sell_in < 10:
+                #If there are 10 days or less, increase quality by 2
+                item.quality = min(50, item.quality + 2)
+            else:
+                #Otherwise, increase quality normally
+                item.quality = min(50, item.quality + 1)
+            item.sell_in -= 1
+        except Exception as e:
+            print(f"Error updating Backstage Pass: {e}")
 
     def _update_sulfuras(self, item):
         #Sulfuras does not change in quality or sell_in
         pass
 
     def _update_conjured(self, item):
-        #Need to implement the logic for Conjured items here
-        pass
+        try:
+            #Check if the item is past its sell by date
+            if item.sell_in < 0:
+                #If it is, degrade quality twice as fast
+                item.quality = max(0, item.quality - 4)
+            else:
+                #Otherwise, degrade quality normally
+                item.quality = max(0, item.quality - 2)
+            item.sell_in -= 1
+        except Exception as e:
+            print(f"Error updating Conjured item: {e}")
 
 
 class Item:
