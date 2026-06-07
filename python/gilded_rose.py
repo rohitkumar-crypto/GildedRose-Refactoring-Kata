@@ -19,20 +19,37 @@ class GildedRose(object):
                 self._update_normal(item)
 
     def _update_normal(self, item):
-        #Need to implement the logic for normal items here
-        pass
+        try:
+            #Check if the item is past its sell by date
+            if item.sell_in < 0:
+                #If it is, degrade quality twice as fast
+                item.quality = max(0, item.quality - 2)
+            else:
+                #Otherwise, degrade quality normally
+                item.quality = max(0, item.quality - 1)
+            item.sell_in -= 1
+        except Exception as e:
+            print(f"Error updating normal item: {e}")
 
     def _update_aged_brie(self, item):
-        #Need to implement the logic for Aged Brie here
-        pass
-    
+        try:    
+            #Check if the item is past its sell by date
+            if item.sell_in < 0:
+                #If it is, increase quality twice as fast
+                item.quality = min(50, item.quality + 2)
+            else:
+                #Otherwise, increase quality normally
+                item.quality = min(50, item.quality + 1)
+            item.sell_in -= 1
+        except Exception as e:
+            print(f"Error updating Aged Brie: {e}")
 
     def _update_backstage_pass(self, item):
         #Need to implement the logic for Backstage passes here
         pass
 
     def _update_sulfuras(self, item):
-        #Need to implement the logic for Sulfuras here
+        #Sulfuras does not change in quality or sell_in
         pass
 
     def _update_conjured(self, item):
